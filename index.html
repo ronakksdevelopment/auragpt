@@ -1610,7 +1610,7 @@ input, textarea { font-family: inherit; color: inherit; }
       if (!state.tempMode) saveState();
     } catch (err) {
       removeTypingIndicator();
-      const botMsg = { role: "bot", content: "Sorry, something went wrong while getting a reply. Please check your API key and internet connection, then try again." };
+      const botMsg = { role: "bot", content: "Sorry, something went wrong while getting a reply: " + (err && err.message ? err.message : "unknown error") + ". Please check your API key and internet connection, then try again." };
       targetMessages.push(botMsg);
       appendMessageEl(botMsg);
       console.error(err);
@@ -1635,7 +1635,7 @@ input, textarea { font-family: inherit; color: inherit; }
       if (!state.tempMode) saveState();
     }).catch(err => {
       removeTypingIndicator();
-      const botMsg = { role: "bot", content: "Sorry, I could not regenerate a reply right now. Please try again." };
+      const botMsg = { role: "bot", content: "Sorry, I could not regenerate a reply right now: " + (err && err.message ? err.message : "unknown error") + ". Please try again." };
       messages.push(botMsg);
       appendMessageEl(botMsg);
       console.error(err);
@@ -1652,8 +1652,16 @@ input, textarea { font-family: inherit; color: inherit; }
     for (const model of FALLBACK_MODELS) {
       try {
         const response = await fetchWithRetry(model, apiMessages, 2);
-        const data = await response.json();
-        if (data.error) throw new Error(data.error.message || "API error");
+        let data;
+        try {
+          data = await response.json();
+        } catch (parseErr) {
+          throw new Error("HTTP " + response.status + ": could not parse response");
+        }
+        if (!response.ok || data.error) {
+          const msg = (data.error && data.error.message) || ("HTTP " + response.status);
+          throw new Error(msg);
+        }
         const reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
         if (reply) return reply.trim();
         throw new Error("No reply content received");
@@ -1678,9 +1686,9 @@ input, textarea { font-family: inherit; color: inherit; }
           },
           body: JSON.stringify({ model: model, messages: apiMessages, stream: false })
         });
-        if (!response.ok && response.status !== 429) return response;
-        if (response.ok) return response;
-        // 429 rate limited, retry with backoff
+        // Only 429 (rate limited) and 5xx (upstream/provider issue) are worth retrying.
+        // 4xx errors like 401 (bad key) or 402 (no credits) will never succeed on retry.
+        if (response.ok || (response.status !== 429 && response.status < 500)) return response;
         await new Promise(r => setTimeout(r, 600 * (attempt + 1)));
       } catch (err) {
         if (attempt === retries) throw err;
