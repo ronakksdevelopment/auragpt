@@ -1007,13 +1007,13 @@ input, textarea { font-family: inherit; color: inherit; }
      CONFIG — put your own OpenRouter API key here before using.
      Do not publish this file anywhere with a real key inside it.
   ============================================================ */
-  const OPENROUTER_API_KEY = "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";
+  const OPENROUTER_API_KEY = "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";
   const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
   const MODEL = "openrouter/auto"; // auto select model
   const FALLBACK_MODELS = [
     "openrouter/auto",
     "meta-llama/llama-3.1-8b-instruct:free",
-    "google/gemma-2-9b-it:free",
+    "meta-llama/llama-4-maverick:free",
     "mistralai/mistral-7b-instruct:free"
   ];
 
@@ -1705,7 +1705,7 @@ input, textarea { font-family: inherit; color: inherit; }
     loadState();
     renderProfile();
     renderChatList();
-    if (OPENROUTER_API_KEY === "PUT_YOUR_OPENROUTER_API_KEY_HERE") {
+    if (OPENROUTER_API_KEY === "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") {
       setTimeout(() => showToast("Add your OpenRouter API key in the script to start chatting"), 700);
     }
   }
