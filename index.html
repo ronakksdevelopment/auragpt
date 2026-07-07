@@ -1009,9 +1009,9 @@ input, textarea { font-family: inherit; color: inherit; }
   ============================================================ */
   const OPENROUTER_API_KEY = "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";
   const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-  const MODEL = "openrouter/auto"; // auto select model
+  const MODEL = "openrouter/free"; // free model auto-select (zero cost)
   const FALLBACK_MODELS = [
-    "openrouter/auto",
+    "openrouter/free",
     "meta-llama/llama-3.1-8b-instruct:free",
     "meta-llama/llama-4-maverick:free",
     "mistralai/mistral-7b-instruct:free"
