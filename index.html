@@ -4,26 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>AuraGPT v1.0</title>
+<meta name="theme-color" content="#A5AF79">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AuraGPT">
+<link rel="icon" href="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png">
+<link rel="apple-touch-icon" href="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png">
+<link rel="manifest" id="manifestLink">
 <style>
 /* ============ RESET & TOKENS ============ */
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 :root {
-  --moss: #6E1423;
-  --moss-dark: #4A0E18;
-  --moss-light: #8C2233;
-  --cream: #EFE3CE;
-  --cream-soft: #F6EEDD;
-  --ember: #7B2D2D;
-  --ember-dark: #5F1F1F;
-  --ember-light: #9C4444;
-  --wine: #4A0E18;
-  --wine-dark: #2E070E;
-  --ink: #141414;
+  --moss: #827148;
+  --moss-dark: #665A39;
+  --moss-light: #A5AF79;
+  --cream: #FFEED6;
+  --cream-soft: #FFF6E9;
+  --ember: #E8A07C;
+  --ember-dark: #CC7F58;
+  --ember-light: #F0B79A;
+  --wine: #827148;
+  --wine-dark: #5C5133;
+  --ink: #2A2318;
   --paper: #FFFFFF;
-  --line: rgba(20, 20, 20, 0.1);
-  --shadow-soft: 0 2px 10px rgba(20, 20, 20, 0.08);
-  --shadow-med: 0 6px 24px rgba(20, 20, 20, 0.14);
+  --line: rgba(42, 35, 24, 0.1);
+  --shadow-soft: 0 2px 10px rgba(42, 35, 24, 0.08);
+  --shadow-med: 0 6px 24px rgba(42, 35, 24, 0.14);
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 22px;
@@ -32,11 +40,11 @@
 }
 
 [data-theme="dark"] {
-  --cream: #1A1414;
-  --cream-soft: #211919;
-  --paper: #0E0E0E;
-  --ink: #F5EEE6;
-  --line: rgba(245, 238, 230, 0.1);
+  --cream: #211D14;
+  --cream-soft: #2A2419;
+  --paper: #171310;
+  --ink: #FFEED6;
+  --line: rgba(255, 238, 214, 0.1);
   --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.3);
   --shadow-med: 0 6px 24px rgba(0, 0, 0, 0.4);
 }
@@ -56,8 +64,8 @@ input, textarea { font-family: inherit; color: inherit; }
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(96, 116, 86, 0.35); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(96, 116, 86, 0.55); }
+::-webkit-scrollbar-thumb { background: rgba(130, 113, 72, 0.35); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(130, 113, 72, 0.55); }
 
 /* ============ APP SHELL ============ */
 .app {
@@ -103,8 +111,10 @@ input, textarea { font-family: inherit; color: inherit; }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   box-shadow: var(--shadow-soft);
+  overflow: hidden;
 }
 .brand-mark svg { width: 20px; height: 20px; }
+.brand-mark img { width: 100%; height: 100%; object-fit: cover; }
 .brand-name {
   font-size: 17px;
   font-weight: 700;
@@ -156,7 +166,7 @@ input, textarea { font-family: inherit; color: inherit; }
 .side-btn:hover { background: rgba(251,249,244,0.14); }
 .side-btn:active { transform: scale(0.98); }
 .side-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
-.side-btn.new-chat { background: var(--ember); box-shadow: var(--shadow-soft); }
+.side-btn.new-chat { background: var(--ember); color: var(--ink); box-shadow: var(--shadow-soft); }
 .side-btn.new-chat:hover { background: var(--ember-dark); }
 
 .search-wrap {
@@ -413,8 +423,10 @@ input, textarea { font-family: inherit; color: inherit; }
   display: flex; align-items: center; justify-content: center;
   box-shadow: var(--shadow-med);
   animation: floaty 3.6s ease-in-out infinite;
+  overflow: hidden;
 }
 .welcome-mascot svg { width: 42px; height: 42px; }
+.welcome-mascot img { width: 100%; height: 100%; object-fit: cover; }
 .welcome h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; }
 .welcome p { font-size: 14px; opacity: 0.65; max-width: 360px; line-height: 1.5; }
 
@@ -451,7 +463,8 @@ input, textarea { font-family: inherit; color: inherit; }
 }
 .msg-avatar.bot { background: var(--moss); }
 .msg-avatar.bot svg { width: 17px; height: 17px; }
-.msg-avatar.user-av { background: var(--ember); color: var(--paper); font-size: 12px; font-weight: 700; }
+.msg-avatar.bot img { width: 100%; height: 100%; object-fit: cover; }
+.msg-avatar.user-av { background: var(--ember); color: var(--ink); font-size: 12px; font-weight: 700; }
 .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
 .msg-col { display: flex; flex-direction: column; gap: 6px; max-width: 74%; }
@@ -604,7 +617,7 @@ input, textarea { font-family: inherit; color: inherit; }
   width: 38px; height: 38px;
   border-radius: 50%;
   background: var(--ember);
-  color: var(--paper);
+  color: var(--ink);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
   box-shadow: var(--shadow-soft);
@@ -657,7 +670,7 @@ input, textarea { font-family: inherit; color: inherit; }
   width: 64px; height: 64px;
   border-radius: 50%;
   background: var(--ember);
-  color: var(--paper);
+  color: var(--ink);
   display: flex; align-items: center; justify-content: center;
   font-size: 22px; font-weight: 700;
   overflow: hidden;
@@ -827,7 +840,7 @@ input, textarea { font-family: inherit; color: inherit; }
     <div class="sidebar-top">
       <div class="brand">
         <div class="brand-mark">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 6 5 6 8c0 2 1 3 1 5 0 1-1 2-1 2h12s-1-1-1-2c0-2 1-3 1-5 0-3-2-6-6-6Z" fill="#FFFFFF"/><circle cx="9.5" cy="9" r="1.3" fill="#6E1423"/><circle cx="14.5" cy="9" r="1.3" fill="#6E1423"/><path d="M9 19h6v1a3 3 0 0 1-6 0v-1Z" fill="#FFFFFF"/></svg>
+          <img src="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png" alt="AuraGPT">
         </div>
         <div>
           <div class="brand-name">AuraGPT</div>
@@ -878,6 +891,10 @@ input, textarea { font-family: inherit; color: inherit; }
         <span class="name" id="topbarTitle">New chat</span>
         <span class="status"><span class="dot"></span>Auto select model</span>
       </div>
+      <button class="topbar-btn" id="installBtn" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span>Install app</span>
+      </button>
       <button class="topbar-btn" id="tempChatBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
         <span>Temporary chat</span>
@@ -888,7 +905,7 @@ input, textarea { font-family: inherit; color: inherit; }
       <div class="chat-inner" id="chatInner">
         <div class="welcome" id="welcomeScreen">
           <div class="welcome-mascot">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 6 5 6 8c0 2 1 3 1 5 0 1-1 2-1 2h12s-1-1-1-2c0-2 1-3 1-5 0-3-2-6-6-6Z" fill="#FFFFFF"/><circle cx="9.5" cy="9" r="1.3" fill="#6E1423"/><circle cx="14.5" cy="9" r="1.3" fill="#6E1423"/><path d="M9 19h6v1a3 3 0 0 1-6 0v-1Z" fill="#FFFFFF"/></svg>
+            <img src="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png" alt="AuraGPT">
           </div>
           <h1>Hey, I'm AuraGPT</h1>
           <p>Ask me anything. I give simple and clear answers. Pick a topic below or type your own question.</p>
@@ -999,6 +1016,7 @@ input, textarea { font-family: inherit; color: inherit; }
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script>
 (function() {
   "use strict";
@@ -1389,7 +1407,7 @@ input, textarea { font-family: inherit; color: inherit; }
       else avatar.textContent = avatarInitial();
     } else {
       avatar.className = "msg-avatar bot";
-      avatar.innerHTML = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 6 5 6 8c0 2 1 3 1 5 0 1-1 2-1 2h12s-1-1-1-2c0-2 1-3 1-5 0-3-2-6-6-6Z" fill="#FFFFFF"/><circle cx="9.5" cy="9" r="1.3" fill="#6E1423"/><circle cx="14.5" cy="9" r="1.3" fill="#6E1423"/></svg>`;
+      avatar.innerHTML = `<img src="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png" alt="AuraGPT">`;
     }
 
     const col = document.createElement("div");
@@ -1453,7 +1471,7 @@ input, textarea { font-family: inherit; color: inherit; }
     row.className = "msg-row bot";
     row.id = "typingRow";
     row.innerHTML = `
-      <div class="msg-avatar bot"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 6 5 6 8c0 2 1 3 1 5 0 1-1 2-1 2h12s-1-1-1-2c0-2 1-3 1-5 0-3-2-6-6-6Z" fill="#FFFFFF"/><circle cx="9.5" cy="9" r="1.3" fill="#6E1423"/><circle cx="14.5" cy="9" r="1.3" fill="#6E1423"/></svg></div>
+      <div class="msg-avatar bot"><img src="https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png" alt="AuraGPT"></div>
       <div class="msg-col">
         <div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>
       </div>`;
@@ -1491,14 +1509,40 @@ input, textarea { font-family: inherit; color: inherit; }
     Array.from(e.target.files).forEach(file => {
       const reader = new FileReader();
       reader.onload = () => {
-        pendingAttachments.push({ name: file.name, type: file.type, dataUrl: reader.result });
+        const att = { name: file.name, type: file.type, dataUrl: reader.result, ocrText: "", ocrStatus: file.type.startsWith("image/") ? "pending" : "" };
+        pendingAttachments.push(att);
         renderAttachRow();
         updateSendState();
+        if (file.type.startsWith("image/")) runImageOCR(att);
       };
       reader.readAsDataURL(file);
     });
     fileInput.value = "";
   });
+
+  /* ============================================================
+     IMAGE TEXT READING (OCR via Tesseract.js)
+     Extracts any readable text from uploaded images so it can be
+     included with the message sent to the model.
+  ============================================================ */
+  function runImageOCR(att) {
+    if (typeof Tesseract === "undefined") { att.ocrStatus = ""; return; }
+    att.ocrStatus = "reading";
+    renderAttachRow();
+    Tesseract.recognize(att.dataUrl, "eng")
+      .then(({ data }) => {
+        const text = (data && data.text ? data.text.trim() : "");
+        att.ocrText = text;
+        att.ocrStatus = "done";
+        renderAttachRow();
+        if (text) showToast("Read text from " + att.name);
+      })
+      .catch(err => {
+        console.warn("OCR failed for", att.name, err);
+        att.ocrStatus = "error";
+        renderAttachRow();
+      });
+  }
 
   function renderAttachRow() {
     attachRow.innerHTML = "";
@@ -1512,7 +1556,7 @@ input, textarea { font-family: inherit; color: inherit; }
       }
       const nameSpan = document.createElement("span");
       nameSpan.className = "fname";
-      nameSpan.textContent = att.name;
+      nameSpan.textContent = att.name + (att.ocrStatus === "reading" ? " · reading text…" : att.ocrStatus === "done" && att.ocrText ? " · text found" : "");
       const rm = document.createElement("button");
       rm.className = "rm";
       rm.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
@@ -1532,6 +1576,10 @@ input, textarea { font-family: inherit; color: inherit; }
   ============================================================ */
   let recognition = null;
   let isRecording = false;
+  // Tracks how many results (by index) have already been committed to the
+  // textbox, so the same final transcript is never appended twice even if
+  // the browser re-fires onresult for a result index it already reported.
+  let lastCommittedResultIndex = -1;
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
   if (SpeechRecognition) {
@@ -1543,9 +1591,13 @@ input, textarea { font-family: inherit; color: inherit; }
     recognition.onresult = (event) => {
       let finalTranscript = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
+        const result = event.results[i];
+        if (result.isFinal && i > lastCommittedResultIndex) {
+          finalTranscript += result[0].transcript;
+          lastCommittedResultIndex = i;
+        }
       }
-      if (finalTranscript) {
+      if (finalTranscript.trim()) {
         promptInput.value = (promptInput.value + " " + finalTranscript).trim();
         autoGrow();
         updateSendState();
@@ -1558,6 +1610,7 @@ input, textarea { font-family: inherit; color: inherit; }
   function startRecording() {
     if (!recognition) { showToast("Voice dictation is not supported in this browser"); return; }
     isRecording = true;
+    lastCommittedResultIndex = -1; // reset so a new session starts clean
     micBtn.classList.add("recording");
     recognition.start();
   }
@@ -1571,6 +1624,16 @@ input, textarea { font-family: inherit; color: inherit; }
   /* ============================================================
      SEND MESSAGE + OPENROUTER API CALL
   ============================================================ */
+  // Waits (briefly) for any in-flight OCR jobs on the given attachments to finish,
+  // so extracted image text can be included in the outgoing message.
+  async function waitForOCR(attachments, maxWaitMs) {
+    const start = Date.now();
+    while (attachments.some(a => a.ocrStatus === "pending" || a.ocrStatus === "reading")) {
+      if (Date.now() - start > maxWaitMs) break;
+      await new Promise(r => setTimeout(r, 200));
+    }
+  }
+
   async function sendMessage() {
     const text = promptInput.value.trim();
     if (!text && pendingAttachments.length === 0) return;
@@ -1586,6 +1649,9 @@ input, textarea { font-family: inherit; color: inherit; }
         topbarTitle.textContent = chat.title;
       }
     }
+
+    // Give any in-flight image OCR a moment to finish so the read text can be sent along.
+    await waitForOCR(pendingAttachments, 8000);
 
     const userMsg = { role: "user", content: text, attachments: pendingAttachments.slice() };
     const targetMessages = state.tempMode ? state.tempMessages : chat.messages;
@@ -1642,10 +1708,28 @@ input, textarea { font-family: inherit; color: inherit; }
     });
   }
 
+  // Builds the text content sent to the model for a message, folding in any
+  // text that was read from uploaded images via OCR.
+  function buildMessageContent(m) {
+    let content = m.content || "";
+    if (m.attachments && m.attachments.length) {
+      m.attachments.forEach(att => {
+        if (att.ocrText && att.ocrText.trim()) {
+          content += (content ? "\n\n" : "") + `[Text read from image "${att.name}"]:\n${att.ocrText.trim()}`;
+        } else if (att.type && att.type.startsWith("image/")) {
+          content += (content ? "\n\n" : "") + `[Image attached: "${att.name}" — no readable text found in it]`;
+        } else if (att.name) {
+          content += (content ? "\n\n" : "") + `[File attached: "${att.name}"]`;
+        }
+      });
+    }
+    return content || "(sent an attachment)";
+  }
+
   async function callOpenRouter(messages) {
     const apiMessages = [
       { role: "system", content: SYSTEM_PROMPT },
-      ...messages.map(m => ({ role: m.role === "bot" ? "assistant" : "user", content: m.content || "(sent an attachment)" }))
+      ...messages.map(m => ({ role: m.role === "bot" ? "assistant" : "user", content: buildMessageContent(m) }))
     ];
 
     let lastError = null;
@@ -1697,6 +1781,66 @@ input, textarea { font-family: inherit; color: inherit; }
     }
     throw new Error("Request failed after retries");
   }
+
+  /* ============================================================
+     PWA: INSTALLABLE APP (manifest, service worker, install prompt)
+  ============================================================ */
+  (function setupPWA() {
+    const ICON_URL = "https://i.ibb.co/r2Bc1Wyd/Chat-GPT-Image-Jul-9-2026-02-41-34-PM.png";
+
+    // Build a manifest at runtime so this stays a single file.
+    const manifest = {
+      name: "AuraGPT",
+      short_name: "AuraGPT",
+      description: "AuraGPT - your friendly AI assistant",
+      start_url: "./",
+      scope: "./",
+      display: "standalone",
+      background_color: "#FFEED6",
+      theme_color: "#A5AF79",
+      icons: [
+        { src: ICON_URL, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+        { src: ICON_URL, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+      ]
+    };
+    try {
+      const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+      const manifestLink = $("manifestLink");
+      if (manifestLink) manifestLink.setAttribute("href", URL.createObjectURL(manifestBlob));
+    } catch (e) { console.warn("Could not build manifest", e); }
+
+    // Register the service worker (required by browsers for installability).
+    // Must be a real same-origin file — browsers reject blob:/data: URLs here.
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").catch(e => console.warn("SW registration failed (this is expected if sw.js isn't hosted alongside this file, or if opened via file://)", e));
+    }
+
+    // Show a real "Install" button using the beforeinstallprompt event.
+    let deferredPrompt = null;
+    const installBtn = $("installBtn");
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = "flex";
+    });
+    if (installBtn) {
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) {
+          showToast("This app is already installed or install is not available in this browser");
+          return;
+        }
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        if (choice && choice.outcome === "accepted") showToast("AuraGPT is installing…");
+        deferredPrompt = null;
+        installBtn.style.display = "none";
+      });
+    }
+    window.addEventListener("appinstalled", () => {
+      if (installBtn) installBtn.style.display = "none";
+      showToast("AuraGPT installed");
+    });
+  })();
 
   /* ============================================================
      INIT
